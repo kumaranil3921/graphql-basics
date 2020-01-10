@@ -1,0 +1,63 @@
+type Query {
+    hello : String!
+    location: String!
+    title : String!,
+    price : Float!,
+    releaseYear: Int
+    rating : Float
+    inStock: Boolean!
+    me: User!
+    post: Post!
+    posts(query:String): [Post!]!
+    searchPost(title: String): [Post]!
+    grades: [Int!]!
+    sum(numbers:[Float!]!): Float!
+    users(query:String):[User!]!,
+    comments:[Comment!]!
+}
+type Mutation {
+    createUser(data: createUserReqParams) : User!
+    createPost(data: createPostReqParams) : Post!
+    createComment(data: createCommentReqParams) : Comment!
+    deleteUser(id: ID!): User
+    deletePost(id: ID!): Post
+    deleteComment(id: ID!): Comment
+}
+input createUserReqParams {
+    name: String!, 
+    email: String!, 
+    dateOfBirth: String
+}
+input createPostReqParams {
+    title: String!, 
+    body: String!, 
+    author: ID!, 
+    isPublished: Boolean!
+}
+input createCommentReqParams {
+    text: String!, 
+    post: ID!,
+    author: ID!
+}
+type User {
+    id: ID!
+    name : String!
+    email : String!
+    dateOfBirth : String
+    posts : [Post!]! 
+    comments: [Comment!]!
+}
+type Post {
+    id: ID!
+    title : String!
+    body : String!
+    author: User!
+    isPublished: Boolean!
+    comments : [Comment!]!
+}
+type Comment {
+    id : ID!
+    text : String!
+    author : User!
+    post : Post!
+}
