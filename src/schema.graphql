@@ -22,8 +22,20 @@ type Mutation {
     deleteUser(id: ID!): User
     deletePost(id: ID!): Post
     deleteComment(id: ID!): Comment
+    updateUser(id: ID!,data: updateUserReqParams!) : User!
+    updatePost(id: ID!,data: updatePostReqParams!) : Post!
+    updateComment(id: ID!,data: updateCommentReqParams!) : Comment!
+}
+type Subscription {
+    comment(postId : ID!) : CommentSubscriptionPayload!
+    post : PostSubscriptionPayload!
 }
 input createUserReqParams {
+    name: String!, 
+    email: String!, 
+    dateOfBirth: String
+}
+input updateUserReqParams {
     name: String!, 
     email: String!, 
     dateOfBirth: String
@@ -34,10 +46,18 @@ input createPostReqParams {
     author: ID!, 
     isPublished: Boolean!
 }
+input updatePostReqParams {
+    title: String!, 
+    body: String!, 
+    isPublished: Boolean!
+}
 input createCommentReqParams {
     text: String!, 
     post: ID!,
     author: ID!
+}
+input updateCommentReqParams {
+    text: String!
 }
 type User {
     id: ID!
@@ -60,4 +80,17 @@ type Comment {
     text : String!
     author : User!
     post : Post!
+}
+enum MutationTypes {
+    CREATED
+    UPDATED
+    DELETED
+}
+type PostSubscriptionPayload {
+    mutation: MutationTypes!
+    data: Post!
+}
+type CommentSubscriptionPayload {
+    mutation: MutationTypes!
+    data: Comment!
 }

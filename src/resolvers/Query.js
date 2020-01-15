@@ -78,7 +78,7 @@ const Query = {
             return u.name.toLowerCase().includes(args.query.toLowerCase());
         })
     },
-    comments() {
+    comments(parent, args, { db }, info) {
         return db.comments;
     }
 }
