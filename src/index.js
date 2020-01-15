@@ -24,6 +24,9 @@ const server = new GraphQLServer({
         pubsub
     }
 });
-server.start(() => {
+const options = {
+  port: process.env.PORT
+}
+server.start(options,({ port }) => {
     console.log('Server started');
 });
