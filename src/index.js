@@ -28,5 +28,5 @@ const options = {
   port: process.env.PORT
 }
 server.start(options,({ port }) => {
-    console.log('Server started');
+    console.log(`Server started, listening on port ${port} for incoming requests.`);
 });
